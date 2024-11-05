@@ -40,28 +40,28 @@ const ProductList = () => {
   const [addedItems, setAddedItems] = useState([]);
   const { telegram, queryId } = useTelegram();
 
-  const onSendData = useCallback(() => {
-    const data = {
-      queryId,
-      products: addedItems,
-      total: getTotalPrice(addedItems),
-    };
+  // const onSendData = useCallback(() => {
+  //   const data = {
+  //     queryId,
+  //     products: addedItems,
+  //     total: getTotalPrice(addedItems),
+  //   };
 
-    fetch("http://localhost:3000", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-  }, []);
+  //   fetch("http://localhost:8000", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    telegram.onEvent("mainButtonClicked", onSendData);
-    return () => {
-      telegram.offEvent("mainButtonClicked", onSendData);
-    };
-  }, [onSendData]);
+  // useEffect(() => {
+  //   telegram.onEvent("mainButtonClicked", onSendData);
+  //   return () => {
+  //     telegram.offEvent("mainButtonClicked", onSendData);
+  //   };
+  // }, [onSendData]);
 
   const onAdd = (product) => {
     const alreadyAdded = addedItems.find((item) => item.id === product.id);
