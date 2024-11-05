@@ -5,9 +5,9 @@ import "./App.css";
 function App() {
   const { telegram, onToggleButton } = useTelegram();
 
-  useEffect(() => {
-    telegram.ready();
-  }, []);
+  // useEffect(() => {
+  //   telegram.ready();
+  // }, []);
 
   return (
     <div className="App">
