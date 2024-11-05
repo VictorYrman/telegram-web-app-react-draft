@@ -8,6 +8,23 @@ const Form = () => {
   const [subject, setSubject] = useState("physical");
   const { telegram } = useTelegram();
 
+  const onSendData = useCallback(() => {
+    const data = {
+      country,
+      street,
+      subject,
+    };
+
+    telegram.sendData(JSON.stringify(data));
+  }, []);
+
+  useEffect(() => {
+    telegram.onEvent("mainButtonCLicked", onSendData);
+    return () => {
+      telegram.offEvent("mainButtonClicked", onSendData);
+    };
+  }, []);
+
   useEffect(() => {
     telegram.MainButton.setParams({
       text: "Отправить данные",
@@ -21,23 +38,6 @@ const Form = () => {
       telegram.MainButton.show();
     }
   }, [country, street]);
-
-  const onSendData = useCallback(() => {
-    const data = {
-      country,
-      street,
-      subject,
-    };
-
-    telegram.SendData(JSON.stringify(data));
-  }, []);
-
-  useEffect(() => {
-    telegram.onEvent("mainButtonCLicked", onSendData);
-    return () => {
-      telegram.offEvent("mainButtonClicked", onSendData);
-    };
-  }, []);
 
   const onChangeCountry = (e) => {
     setCountry(e.target.value);
