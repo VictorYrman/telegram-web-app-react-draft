@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTelegram } from "../../hooks/useTelegram";
 import "./Form.css";
 
@@ -21,6 +21,23 @@ const Form = () => {
       telegram.MainButton.show();
     }
   }, [country, street]);
+
+  const onSendData = useCallback(() => {
+    const data = {
+      country,
+      street,
+      subject,
+    };
+
+    telegram.SendData(JSON.stringify(data));
+  }, []);
+
+  useEffect(() => {
+    telegram.onEvent("mainButtonCLicked", onSendData);
+    return () => {
+      telegram.offEvent("mainButtonClicked", onSendData);
+    };
+  }, []);
 
   const onChangeCountry = (e) => {
     setCountry(e.target.value);
