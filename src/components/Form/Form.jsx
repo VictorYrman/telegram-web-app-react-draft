@@ -19,7 +19,7 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
-    telegram.onEvent("mainButtonCLicked", onSendData);
+    telegram.onEvent("mainButtonClicked", onSendData);
     return () => {
       telegram.offEvent("mainButtonClicked", onSendData);
     };
